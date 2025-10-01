@@ -90,6 +90,10 @@ export default function RootLayout({
 }) {
   return (
     <html>
+      <head>
+        <link rel='icon' href='/favicon.svg' type='image/svg+xml' />
+        <link rel='alternate icon' href='/favicon/favicon.ico' />
+      </head>
       <body>{children}</body>
     </html>
   );
