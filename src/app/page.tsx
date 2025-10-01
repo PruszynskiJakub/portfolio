@@ -392,9 +392,7 @@ export default function HomePage() {
             className='text-xs font-semibold px-3 py-1.5 bg-forest text-white rounded-full hover:bg-[var(--color-forest-600)] transition-all hover:scale-105 flex items-center gap-1.5'
           >
             <Linkedin className='w-3.5 h-3.5' />
-            <span>
-              {language === 'en' ? "Let's Connect" : 'Nawiążmy kontakt'}
-            </span>
+            <span>{language === 'en' ? "Let's Connect" : 'Poznajmy się'}</span>
           </a>
           <button
             onClick={() => setLanguage(language === 'en' ? 'pl' : 'en')}
