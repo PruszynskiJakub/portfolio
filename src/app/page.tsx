@@ -301,7 +301,7 @@ export default function HomePage() {
                 : 'text-gray-600 hover:text-forest'
             }`}
           >
-            {language === 'en' ? 'Projects' : 'Projekty'}
+            {language === 'en' ? 'Built Products' : 'Zbudowane produkty'}
           </a>
           <a
             href='#recommendations'
@@ -467,6 +467,20 @@ export default function HomePage() {
                 {language === 'en' ? 'Happy clients' : 'Zadowoleni klienci'}
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Taleb Quote */}
+      <section className='py-8 bg-gradient-to-b from-cream to-white'>
+        <div className='max-w-3xl mx-auto px-6'>
+          <div className='text-center'>
+            <p className='text-lg italic text-gray-700 mb-2'>
+              {language === 'en'
+                ? '"Those who talk should do and only those who do should talk"'
+                : '"Powinni mówić Ci co robią i TYLKO Ci co robią mogą mówić"'}
+            </p>
+            <p className='text-sm text-gray-500'>— Nassim Taleb</p>
           </div>
         </div>
       </section>
