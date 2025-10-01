@@ -1,34 +1,25 @@
 'use client';
 
 import {
-  Award,
   BookMarked,
-  Bot,
-  Brain,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
   Code2,
-  Coffee,
   ExternalLink,
   Github,
-  GraduationCap,
   Hash,
   Layers,
   LineChart,
   Linkedin,
   Mail,
   Presentation,
-  Shield,
-  Sparkles,
   Train,
   Users,
   Youtube,
-  Zap,
 } from 'lucide-react';
 import Image from 'next/image';
-import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const projects = [
   {
@@ -174,6 +165,12 @@ const projects = [
 export default function HomePage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAllInitiatives, setShowAllInitiatives] = useState(false);
+  const [language, setLanguage] = useState<'en' | 'pl'>('en');
+  const [activeSection, setActiveSection] = useState('');
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const [yearsCount, setYearsCount] = useState(0);
+  const [productsCount, setProductsCount] = useState(0);
+  const [clientsCount, setClientsCount] = useState(0);
   const itemsPerPage = 6;
   const totalPages = Math.ceil(projects.length / itemsPerPage);
 
@@ -185,8 +182,148 @@ export default function HomePage() {
     setCurrentIndex((prev) => (prev - 1 + totalPages) % totalPages);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = [
+        'initiatives',
+        'projects',
+        'certifications',
+        'recommendations',
+        'contact',
+      ];
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Counting animation for Three Pillars
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            setHasAnimated(true);
+            // Animate years
+            const yearsInterval = setInterval(() => {
+              setYearsCount((prev) => {
+                if (prev >= 10) {
+                  clearInterval(yearsInterval);
+                  return 10;
+                }
+                return prev + 1;
+              });
+            }, 200);
+            // Animate products
+            const productsInterval = setInterval(() => {
+              setProductsCount((prev) => {
+                if (prev >= 12) {
+                  clearInterval(productsInterval);
+                  return 12;
+                }
+                return prev + 1;
+              });
+            }, 150);
+            // Animate clients
+            const clientsInterval = setInterval(() => {
+              setClientsCount((prev) => {
+                if (prev >= 100) {
+                  clearInterval(clientsInterval);
+                  return 100;
+                }
+                return prev + 5;
+              });
+            }, 30);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    const pillarsElement = document.getElementById('three-pillars');
+    if (pillarsElement) {
+      observer.observe(pillarsElement);
+    }
+
+    return () => {
+      if (pillarsElement) {
+        observer.unobserve(pillarsElement);
+      }
+    };
+  }, [hasAnimated]);
+
   return (
     <main className='bg-cream text-charcoal'>
+      {/* Navigation Menu - Top Right */}
+      <nav className='fixed top-6 right-6 z-50 bg-white/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-md'>
+        <div className='flex items-center gap-6'>
+          <a
+            href='#initiatives'
+            className={`text-sm font-semibold transition-colors ${
+              activeSection === 'initiatives'
+                ? 'text-[var(--color-forest-600)]'
+                : 'text-gray-600 hover:text-forest'
+            }`}
+          >
+            {language === 'en' ? 'Initiatives' : 'Inicjatywy'}
+          </a>
+          <a
+            href='#certifications'
+            className={`text-xs transition-colors ${
+              activeSection === 'certifications'
+                ? 'text-forest font-semibold'
+                : 'text-gray-600 hover:text-forest'
+            }`}
+          >
+            {language === 'en' ? 'Certifications' : 'Certyfikaty'}
+          </a>
+          <a
+            href='#projects'
+            className={`text-xs transition-colors ${
+              activeSection === 'projects'
+                ? 'text-forest font-semibold'
+                : 'text-gray-600 hover:text-forest'
+            }`}
+          >
+            {language === 'en' ? 'Projects' : 'Projekty'}
+          </a>
+          <a
+            href='#recommendations'
+            className={`text-xs transition-colors ${
+              activeSection === 'recommendations'
+                ? 'text-forest font-semibold'
+                : 'text-gray-600 hover:text-forest'
+            }`}
+          >
+            {language === 'en' ? 'Testimonials' : 'Referencje'}
+          </a>
+          <div className='border-l border-gray-300 h-4'></div>
+          <button
+            onClick={() => setLanguage(language === 'en' ? 'pl' : 'en')}
+            className='text-xs font-medium px-2 py-1 rounded-md hover:bg-gray-100 transition-colors flex items-center gap-1'
+          >
+            {language === 'en' ? '🇬🇧' : '🇵🇱'}
+            <span>{language === 'en' ? 'EN' : 'PL'}</span>
+          </button>
+        </div>
+      </nav>
+
       {/* Refined Split Hero - More Compact */}
       <section className='min-h-[70vh] relative'>
         <div className='absolute inset-0 grid grid-cols-2'>
@@ -209,7 +346,7 @@ export default function HomePage() {
                 <div className='mb-4'>
                   <Code2 className='w-6 h-6 text-forest mb-2' />
                   <span className='text-xs font-mono text-forest'>
-                    ENGINEER
+                    {language === 'en' ? 'ENGINEER' : 'INŻYNIER'}
                   </span>
                 </div>
                 <h1 className='text-3xl lg:text-4xl font-bold mb-4 leading-tight'>
@@ -217,8 +354,9 @@ export default function HomePage() {
                   <span className='text-forest'>AI Builder</span>
                 </h1>
                 <p className='text-sm text-gray-600 mb-6 max-w-xs'>
-                  I transform complex problems into elegant solutions. KMP, ML,
-                  and products that matter.
+                  {language === 'en'
+                    ? 'I transform complex problems into elegant solutions. KMP, ML, and products that matter.'
+                    : 'Przekształcam złożone problemy w eleganckie rozwiązania. KMP, ML i produkty, które mają znaczenie.'}
                 </p>
               </div>
 
@@ -228,16 +366,19 @@ export default function HomePage() {
                   <Layers className='w-6 h-6 text-[#FF8C69] mb-2' />
                 </div>
                 <span className='text-xs font-mono text-[#FF8C69]'>
-                  ARCHITECT
+                  {language === 'en' ? 'ARCHITECT' : 'ARCHITEKT'}
                 </span>
                 <h1 className='text-3xl lg:text-4xl font-bold mb-4 leading-tight mt-4'>
-                  Product
+                  {language === 'en' ? 'Product' : 'Produkt'}
                   <br />
-                  <span className='text-[#FF8C69]'>Thinker</span>
+                  <span className='text-[#FF8C69]'>
+                    {language === 'en' ? 'Thinker' : 'Strateg'}
+                  </span>
                 </h1>
                 <p className='text-sm text-gray-600 mb-6 max-w-xs ml-auto'>
-                  Beyond code. Strategy, discovery, and execution with business
-                  impact in mind.
+                  {language === 'en'
+                    ? 'Beyond code. Strategy, discovery, and execution with business impact in mind.'
+                    : 'Poza kodem. Strategia, odkrywanie i wykonanie z myślą o wpływie na biznes.'}
                 </p>
               </div>
             </div>
@@ -245,14 +386,23 @@ export default function HomePage() {
             {/* Center Profile - Smaller */}
             <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
               <div className='relative'>
+                {/* Avatar */}
                 <div className='w-28 h-28 lg:w-32 lg:h-32 rounded-full bg-gradient-to-br from-[var(--color-forest-400)] to-[#FF8C69] p-0.5'>
-                  <div className='w-full h-full rounded-full bg-cream flex items-center justify-center'>
-                    <Coffee className='w-10 h-10 lg:w-12 lg:h-12 text-forest/80' />
+                  <div className='w-full h-full rounded-full bg-cream overflow-hidden'>
+                    <Image
+                      src='/images/me.jpeg'
+                      alt='Jakub Pruszyński'
+                      width={128}
+                      height={128}
+                      className='w-full h-full object-cover'
+                    />
                   </div>
                 </div>
-                <div className='absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap'>
-                  <p className='text-xs font-medium'>Jakub Pruszyński</p>
-                  <p className='text-xs text-gray-500 text-center'>Warsaw 🇵🇱</p>
+                <div className='absolute -bottom-15 left-1/2 -translate-x-1/2 whitespace-nowrap text-center'>
+                  <p className='text-lg lg:text-xl font-bold text-charcoal'>
+                    Jakub Pruszyński
+                  </p>
+                  <p className='text-xs text-gray-500'>Warsaw 🇵🇱</p>
                 </div>
               </div>
             </div>
@@ -264,87 +414,74 @@ export default function HomePage() {
       <section className='py-12 bg-white'>
         <div className='max-w-3xl mx-auto px-6 text-center'>
           <h2 className='text-2xl font-semibold'>
-            Code is just the <span className='text-forest'>artifact</span>.
-            Impact is what <span className='text-[#FF8C69]'>matters</span>.
+            {language === 'en' ? (
+              <>
+                Code is just the <span className='text-forest'>artifact</span>.
+                Impact is what <span className='text-[#FF8C69]'>matters</span>.
+              </>
+            ) : (
+              <>
+                Kod to tylko <span className='text-forest'>artefakt</span>. To
+                wpływ się <span className='text-[#FF8C69]'>liczy</span>.
+              </>
+            )}
           </h2>
           <p className='mt-4 text-sm text-gray-600 max-w-xl mx-auto'>
-            A decade of building mobile apps for enterprises and startups. Now
-            focused on the full picture: product discovery, technical strategy,
-            and execution.
+            {language === 'en'
+              ? 'A decade of building mobile apps for enterprises and startups. Now focused on the full picture: product discovery, technical strategy, and execution.'
+              : 'Dekada budowania aplikacji mobilnych dla korporacji i startupów. Teraz skupiony na pełnym obrazie: odkrywanie produktu, strategia techniczna i wykonanie.'}
           </p>
         </div>
       </section>
 
-      {/* Three Pillars - Compact Cards */}
-      <section className='py-12 bg-gradient-to-b from-white to-cream'>
+      {/* Three Pillars Section - Animated Metrics */}
+      <section
+        id='three-pillars'
+        className='py-8 bg-gradient-to-b from-white to-cream'
+      >
         <div className='max-w-5xl mx-auto px-6'>
-          <div className='text-center mb-8'>
-            <h2 className='text-2xl font-semibold'>What I Do</h2>
-          </div>
-
-          <div className='grid md:grid-cols-3 gap-6'>
-            {/* Card 1 */}
-            <div className='bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow'>
-              <div className='w-10 h-10 bg-[var(--color-forest-50)] rounded-lg flex items-center justify-center mb-4'>
-                <Brain className='w-5 h-5 text-forest' />
-              </div>
-              <h3 className='text-lg font-semibold mb-2'>Product Thinking</h3>
-              <p className='text-sm text-gray-600'>
-                Turn vague ideas into concrete products. Data-driven solutions
-                focused on business outcomes.
+          <div className='flex justify-center gap-12'>
+            <div className='text-center'>
+              <p className='text-4xl font-bold text-forest transition-all duration-300'>
+                {yearsCount}+
+              </p>
+              <p className='text-sm text-gray-600 mt-2'>
+                {language === 'en'
+                  ? 'Years of experience'
+                  : 'Lat doświadczenia'}
               </p>
             </div>
-
-            {/* Card 2 */}
-            <div className='bg-gradient-to-br from-[#FFF5EE] to-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow'>
-              <div className='w-10 h-10 bg-[#FFD4B3]/30 rounded-lg flex items-center justify-center mb-4'>
-                <Zap className='w-5 h-5 text-[#FF8C69]' />
-              </div>
-              <h3 className='text-lg font-semibold mb-2'>Fast Execution</h3>
-              <p className='text-sm text-gray-600'>
-                2x delivery efficiency. KMP expertise for simultaneous iOS +
-                Android shipping.
+            <div className='text-center'>
+              <p className='text-4xl font-bold text-forest transition-all duration-300'>
+                {productsCount}+
+              </p>
+              <p className='text-sm text-gray-600 mt-2'>
+                {language === 'en' ? 'Built products' : 'Zbudowane produkty'}
               </p>
             </div>
-
-            {/* Card 3 */}
-            <div className='bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow'>
-              <div className='w-10 h-10 bg-[var(--color-forest-50)] rounded-lg flex items-center justify-center mb-4'>
-                <Sparkles className='w-5 h-5 text-forest' />
-              </div>
-              <h3 className='text-lg font-semibold mb-2'>AI Integration</h3>
-              <p className='text-sm text-gray-600'>
-                Practical AI implementation. From document processing to
-                ML-powered mobile apps.
+            <div className='text-center'>
+              <p className='text-4xl font-bold text-forest transition-all duration-300'>
+                {clientsCount}%
               </p>
-            </div>
-          </div>
-
-          {/* Metrics Row */}
-          <div className='flex justify-center gap-8 mt-8 pt-8 border-t border-gray-200'>
-            <div className='text-center'>
-              <p className='text-2xl font-bold text-forest'>110-190h</p>
-              <p className='text-xs text-gray-500'>Monthly hours saved</p>
-            </div>
-            <div className='text-center'>
-              <p className='text-2xl font-bold text-forest'>2x</p>
-              <p className='text-xs text-gray-500'>Delivery efficiency</p>
-            </div>
-            <div className='text-center'>
-              <p className='text-2xl font-bold text-forest'>10+</p>
-              <p className='text-xs text-gray-500'>Years experience</p>
+              <p className='text-sm text-gray-600 mt-2'>
+                {language === 'en' ? 'Happy clients' : 'Zadowoleni klienci'}
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Initiatives Section - Teaching & Sharing */}
-      <section className='py-12 bg-white'>
+      <section id='initiatives' className='py-12 bg-white'>
         <div className='max-w-5xl mx-auto px-6'>
           <div className='text-center mb-8'>
-            <h2 className='text-2xl font-semibold'>Initiatives</h2>
+            <h2 className='text-2xl font-semibold'>
+              {language === 'en' ? 'Initiatives' : 'Inicjatywy'}
+            </h2>
             <p className='text-sm text-gray-600 mt-2'>
-              Sharing knowledge and building community
+              {language === 'en'
+                ? 'Sharing knowledge and building community'
+                : 'Dzielenie się wiedzą i budowanie społeczności'}
             </p>
           </div>
 
@@ -571,13 +708,29 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Clear Divider */}
+      <div className='bg-white'>
+        <div className='max-w-5xl mx-auto px-6'>
+          <div className='py-8'>
+            <div className='w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent'></div>
+          </div>
+        </div>
+      </div>
+
       {/* Certifications Section - Compact and Professional */}
-      <section className='py-12 bg-gradient-to-b from-white to-cream'>
+      <section
+        id='certifications'
+        className='py-12 bg-gradient-to-b from-cream-light to-cream'
+      >
         <div className='max-w-5xl mx-auto px-6'>
           <div className='text-center mb-8'>
-            <h2 className='text-2xl font-semibold'>Certifications</h2>
+            <h2 className='text-2xl font-semibold'>
+              {language === 'en' ? 'Certifications' : 'Certyfikaty'}
+            </h2>
             <p className='text-sm text-gray-600 mt-2'>
-              Continuous learning in AI, security, and automation
+              {language === 'en'
+                ? 'Continuous learning in AI, security, and automation'
+                : 'Ciągła nauka w AI, bezpieczeństwie i automatyzacji'}
             </p>
           </div>
 
@@ -585,20 +738,30 @@ export default function HomePage() {
             {/* AI Product Heroes - In Progress */}
             <div className='bg-gradient-to-br from-[#F0F4FF] to-white rounded-lg p-4 border-2 border-dashed border-[#6366F1]/30 relative'>
               <div className='absolute top-2 right-2 px-1.5 py-0.5 bg-[#6366F1] text-white text-xs rounded-full text-[10px] font-medium'>
-                In Progress
+                {language === 'en' ? 'In Progress' : 'W trakcie'}
               </div>
               <div className='flex items-start gap-3'>
-                <div className='w-8 h-8 bg-[#6366F1]/10 rounded-lg flex items-center justify-center flex-shrink-0'>
-                  <Award className='w-4 h-4 text-[#6366F1]' />
+                <div className='relative w-10 h-10 flex-shrink-0'>
+                  <Image
+                    src='/images/cert_aiproductheroes.png'
+                    alt='AI Product Heroes logo'
+                    width={40}
+                    height={40}
+                    className='object-contain'
+                  />
                 </div>
                 <div className='flex-1'>
                   <h4 className='text-sm font-semibold text-charcoal'>
                     AI Product Heroes
                   </h4>
                   <p className='text-xs text-gray-600 mt-0.5'>
-                    Product-focused AI development
+                    {language === 'en'
+                      ? 'Product-focused AI development'
+                      : 'Rozwój AI zorientowany na produkt'}
                   </p>
-                  <p className='text-xs text-[#6366F1] mt-1'>October 2025</p>
+                  <p className='text-xs text-[#6366F1] mt-1'>
+                    {language === 'en' ? 'October 2025' : 'Październik 2025'}
+                  </p>
                 </div>
               </div>
             </div>
@@ -606,17 +769,27 @@ export default function HomePage() {
             {/* AI_devs 3 Agents */}
             <div className='bg-gradient-to-br from-[#FFF5EE] to-white rounded-lg p-4 border border-[#FFD4B3]/30'>
               <div className='flex items-start gap-3'>
-                <div className='w-8 h-8 bg-[#FFD4B3]/30 rounded-lg flex items-center justify-center flex-shrink-0'>
-                  <Sparkles className='w-4 h-4 text-[#FF8C69]' />
+                <div className='relative w-10 h-10 flex-shrink-0'>
+                  <Image
+                    src='/images/cert_aidevs.png'
+                    alt='AI_devs logo'
+                    width={40}
+                    height={40}
+                    className='object-contain'
+                  />
                 </div>
                 <div className='flex-1'>
                   <h4 className='text-sm font-semibold text-charcoal'>
                     AI_devs 3 Agents
                   </h4>
                   <p className='text-xs text-gray-600 mt-0.5'>
-                    Building AI Agents
+                    {language === 'en'
+                      ? 'Building AI Agents'
+                      : 'Budowanie agentów AI'}
                   </p>
-                  <p className='text-xs text-[#FF8C69] mt-1'>October 2024</p>
+                  <p className='text-xs text-[#FF8C69] mt-1'>
+                    {language === 'en' ? 'December 2024' : 'Grudzień 2024'}
+                  </p>
                 </div>
               </div>
             </div>
@@ -624,17 +797,27 @@ export default function HomePage() {
             {/* Zautomatyzowani */}
             <div className='bg-gradient-to-br from-[var(--color-forest-50)] to-white rounded-lg p-4 border border-[var(--color-forest-100)]'>
               <div className='flex items-start gap-3'>
-                <div className='w-8 h-8 bg-[var(--color-forest-100)] rounded-lg flex items-center justify-center flex-shrink-0'>
-                  <Bot className='w-4 h-4 text-forest' />
+                <div className='relative w-10 h-10 flex-shrink-0'>
+                  <Image
+                    src='/images/cert_zautomatyzowani.png'
+                    alt='Zautomatyzowani logo'
+                    width={40}
+                    height={40}
+                    className='object-contain'
+                  />
                 </div>
                 <div className='flex-1'>
                   <h4 className='text-sm font-semibold text-charcoal'>
                     Zautomatyzowani
                   </h4>
                   <p className='text-xs text-gray-600 mt-0.5'>
-                    Automation tools, process & RPA
+                    {language === 'en'
+                      ? 'Automation tools, process & RPA'
+                      : 'Narzędzia automatyzacji, procesy i RPA'}
                   </p>
-                  <p className='text-xs text-forest mt-1'>October 2024</p>
+                  <p className='text-xs text-forest mt-1'>
+                    {language === 'en' ? 'April 2025' : 'Kwiecień 2025'}
+                  </p>
                 </div>
               </div>
             </div>
@@ -642,17 +825,27 @@ export default function HomePage() {
             {/* AI Devs 2 */}
             <div className='bg-gradient-to-br from-[#FFF5EE] to-white rounded-lg p-4 border border-[#FFD4B3]/30'>
               <div className='flex items-start gap-3'>
-                <div className='w-8 h-8 bg-[#FFD4B3]/30 rounded-lg flex items-center justify-center flex-shrink-0'>
-                  <Brain className='w-4 h-4 text-[#FF8C69]' />
+                <div className='relative w-10 h-10 flex-shrink-0'>
+                  <Image
+                    src='/images/cert_aidevs.png'
+                    alt='AI Devs logo'
+                    width={40}
+                    height={40}
+                    className='object-contain'
+                  />
                 </div>
                 <div className='flex-1'>
                   <h4 className='text-sm font-semibold text-charcoal'>
                     AI Devs 2
                   </h4>
                   <p className='text-xs text-gray-600 mt-0.5'>
-                    Building AI Applications
+                    {language === 'en'
+                      ? 'Building AI Applications'
+                      : 'Budowanie aplikacji AI'}
                   </p>
-                  <p className='text-xs text-[#FF8C69] mt-1'>June 2024</p>
+                  <p className='text-xs text-[#FF8C69] mt-1'>
+                    {language === 'en' ? 'April 2024' : 'Kwiecień 2024'}
+                  </p>
                 </div>
               </div>
             </div>
@@ -660,8 +853,14 @@ export default function HomePage() {
             {/* Android Mobile Security */}
             <div className='bg-gradient-to-br from-gray-50 to-white rounded-lg p-4 border border-gray-200'>
               <div className='flex items-start gap-3'>
-                <div className='w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0'>
-                  <Shield className='w-4 h-4 text-gray-600' />
+                <div className='relative w-10 h-10 flex-shrink-0'>
+                  <Image
+                    src='/images/cert_niebezpiecznik.png'
+                    alt='Niebezpiecznik logo'
+                    width={40}
+                    height={40}
+                    className='object-contain'
+                  />
                 </div>
                 <div className='flex-1'>
                   <h4 className='text-sm font-semibold text-charcoal'>
@@ -670,7 +869,9 @@ export default function HomePage() {
                   <p className='text-xs text-gray-600 mt-0.5'>
                     Niebezpiecznik.pl
                   </p>
-                  <p className='text-xs text-gray-500 mt-1'>May 2024</p>
+                  <p className='text-xs text-gray-500 mt-1'>
+                    {language === 'en' ? 'November 2024' : 'Listopad 2024'}
+                  </p>
                 </div>
               </div>
             </div>
@@ -678,8 +879,14 @@ export default function HomePage() {
             {/* Machine Learning Specialization */}
             <div className='bg-gradient-to-br from-[var(--color-forest-50)] to-white rounded-lg p-4 border border-[var(--color-forest-100)]'>
               <div className='flex items-start gap-3'>
-                <div className='w-8 h-8 bg-[var(--color-forest-100)] rounded-lg flex items-center justify-center flex-shrink-0'>
-                  <GraduationCap className='w-4 h-4 text-forest' />
+                <div className='relative w-10 h-10 flex-shrink-0'>
+                  <Image
+                    src='/images/cert_machinelearning.png'
+                    alt='DeepLearning.AI logo'
+                    width={40}
+                    height={40}
+                    className='object-contain'
+                  />
                 </div>
                 <div className='flex-1'>
                   <h4 className='text-sm font-semibold text-charcoal'>
@@ -688,7 +895,9 @@ export default function HomePage() {
                   <p className='text-xs text-gray-600 mt-0.5'>
                     DeepLearning.AI
                   </p>
-                  <p className='text-xs text-forest mt-1'>February 2024</p>
+                  <p className='text-xs text-forest mt-1'>
+                    {language === 'en' ? 'February 2024' : 'Luty 2024'}
+                  </p>
                   <p className='text-xs text-gray-400 mt-0.5'>
                     ID: 7Q2U3QRHZXUP
                   </p>
@@ -703,7 +912,9 @@ export default function HomePage() {
       <section id='projects' className='py-12 bg-white'>
         <div className='max-w-6xl mx-auto px-6'>
           <div className='flex justify-between items-center mb-8'>
-            <h2 className='text-2xl font-semibold'>Built Products</h2>
+            <h2 className='text-2xl font-semibold'>
+              {language === 'en' ? 'Built Products' : 'Zbudowane produkty'}
+            </h2>
             <div className='flex gap-2'>
               <button
                 onClick={prevSlide}
@@ -811,12 +1022,241 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Recommendations Section */}
+      <section
+        id='recommendations'
+        className='py-12 bg-gradient-to-b from-white to-cream'
+      >
+        <div className='max-w-5xl mx-auto px-6'>
+          <div className='text-center mb-8'>
+            <h2 className='text-2xl font-semibold'>
+              {language === 'en' ? 'What People Say' : 'Co mówią inni'}
+            </h2>
+            <p className='text-sm text-gray-600 mt-2'>
+              {language === 'en'
+                ? 'Testimonials from clients and colleagues'
+                : 'Referencje od klientów i współpracowników'}
+            </p>
+          </div>
+
+          <div className='grid md:grid-cols-2 gap-6'>
+            {/* Matthew Jones */}
+            <div className='bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow'>
+              <div className='mb-4'>
+                <div className='flex text-forest mb-2'>
+                  {[...Array(5)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className='w-4 h-4 fill-current'
+                      viewBox='0 0 20 20'
+                    >
+                      <path d='M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z' />
+                    </svg>
+                  ))}
+                </div>
+                <p className='text-sm text-gray-600 italic leading-relaxed'>
+                  "What sets Jakub apart is not only his strong technical
+                  skills, but also his excellent business orientation. He
+                  approaches building products with a clear understanding of the
+                  client's goals, always seeking the right balance between value
+                  and cost."
+                </p>
+              </div>
+              <div className='flex items-center gap-3'>
+                <div className='w-10 h-10 bg-forest/10 rounded-full flex items-center justify-center'>
+                  <span className='text-xs font-bold text-forest'>MJ</span>
+                </div>
+                <div>
+                  <p className='text-sm font-semibold'>
+                    Matthew Jones, MD FACC FSCAI
+                  </p>
+                  <p className='text-xs text-gray-500'>
+                    Founder, Everbeat | Client
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Steven Miyao */}
+            <div className='bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow'>
+              <div className='mb-4'>
+                <div className='flex text-forest mb-2'>
+                  {[...Array(5)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className='w-4 h-4 fill-current'
+                      viewBox='0 0 20 20'
+                    >
+                      <path d='M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z' />
+                    </svg>
+                  ))}
+                </div>
+                <p className='text-sm text-gray-600 italic leading-relaxed'>
+                  "Jakub combines strong technical expertise with a keen eye for
+                  design and usability. He regularly delivered high-quality work
+                  on tight deadlines and was proactive in suggesting
+                  enhancements that improved the overall product."
+                </p>
+              </div>
+              <div className='flex items-center gap-3'>
+                <div className='w-10 h-10 bg-forest/10 rounded-full flex items-center justify-center'>
+                  <span className='text-xs font-bold text-forest'>SM</span>
+                </div>
+                <div>
+                  <p className='text-sm font-semibold'>Steven Miyao</p>
+                  <p className='text-xs text-gray-500'>
+                    Executive Coach | Client
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Pawel Oltuszyk */}
+            <div className='bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow'>
+              <div className='mb-4'>
+                <div className='flex text-forest mb-2'>
+                  {[...Array(5)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className='w-4 h-4 fill-current'
+                      viewBox='0 0 20 20'
+                    >
+                      <path d='M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z' />
+                    </svg>
+                  ))}
+                </div>
+                <p className='text-sm text-gray-600 italic leading-relaxed'>
+                  "Jakub's expertise in Kotlin development is remarkable,
+                  demonstrating a deep understanding of complex coding
+                  principles. His positive attitude and engaging personality
+                  greatly enhanced our team dynamics."
+                </p>
+              </div>
+              <div className='flex items-center gap-3'>
+                <div className='w-10 h-10 bg-forest/10 rounded-full flex items-center justify-center'>
+                  <span className='text-xs font-bold text-forest'>PO</span>
+                </div>
+                <div>
+                  <p className='text-sm font-semibold'>Pawel Oltuszyk</p>
+                  <p className='text-xs text-gray-500'>Frost | Client</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Rafal Jachimczyk */}
+            <div className='bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow'>
+              <div className='mb-4'>
+                <div className='flex text-forest mb-2'>
+                  {[...Array(5)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className='w-4 h-4 fill-current'
+                      viewBox='0 0 20 20'
+                    >
+                      <path d='M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z' />
+                    </svg>
+                  ))}
+                </div>
+                <p className='text-sm text-gray-600 italic leading-relaxed'>
+                  "Jakub excels because he's very careful with all the little
+                  details. He's committed to doing things right and his
+                  dedication to high-quality work shows that he cares about
+                  delivering the best results."
+                </p>
+              </div>
+              <div className='flex items-center gap-3'>
+                <div className='w-10 h-10 bg-forest/10 rounded-full flex items-center justify-center'>
+                  <span className='text-xs font-bold text-forest'>RJ</span>
+                </div>
+                <div>
+                  <p className='text-sm font-semibold'>Rafal Jachimczyk</p>
+                  <p className='text-xs text-gray-500'>
+                    CTO at Keel | Direct Manager
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Michał Diner */}
+            <div className='bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow'>
+              <div className='mb-4'>
+                <div className='flex text-forest mb-2'>
+                  {[...Array(5)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className='w-4 h-4 fill-current'
+                      viewBox='0 0 20 20'
+                    >
+                      <path d='M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z' />
+                    </svg>
+                  ))}
+                </div>
+                <p className='text-sm text-gray-600 italic leading-relaxed'>
+                  "I was consistently impressed by Jakub's technical expertise
+                  and his ability to solve complex problems with ease. Despite
+                  the high-pressure environment, he remained upbeat and
+                  maintained excellent rapport with the team."
+                </p>
+              </div>
+              <div className='flex items-center gap-3'>
+                <div className='w-10 h-10 bg-forest/10 rounded-full flex items-center justify-center'>
+                  <span className='text-xs font-bold text-forest'>MD</span>
+                </div>
+                <div>
+                  <p className='text-sm font-semibold'>Michał Diner</p>
+                  <p className='text-xs text-gray-500'>
+                    Senior Android Developer | Colleague
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Michał Hawryszko */}
+            <div className='bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow'>
+              <div className='mb-4'>
+                <div className='flex text-forest mb-2'>
+                  {[...Array(5)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className='w-4 h-4 fill-current'
+                      viewBox='0 0 20 20'
+                    >
+                      <path d='M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z' />
+                    </svg>
+                  ))}
+                </div>
+                <p className='text-sm text-gray-600 italic leading-relaxed'>
+                  "Kuba to świetny specjalista, który ciągle dąży do wzbogacania
+                  swoich umiejętności. Potrafi bardzo dobrze interpretować
+                  potrzeby biznesowe na techniczne rozwiązania i odwrotnie."
+                </p>
+              </div>
+              <div className='flex items-center gap-3'>
+                <div className='w-10 h-10 bg-forest/10 rounded-full flex items-center justify-center'>
+                  <span className='text-xs font-bold text-forest'>MH</span>
+                </div>
+                <div>
+                  <p className='text-sm font-semibold'>Michał Hawryszko</p>
+                  <p className='text-xs text-gray-500'>
+                    IT Manager, WP | Direct Manager
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact - Simple and Humble */}
       <section id='contact' className='py-12 bg-white'>
         <div className='max-w-3xl mx-auto px-6 text-center'>
-          <h2 className='text-2xl font-semibold mb-3'>Let's Connect</h2>
+          <h2 className='text-2xl font-semibold mb-3'>
+            {language === 'en' ? "Let's Connect" : 'Nawiążmy kontakt'}
+          </h2>
           <p className='text-sm text-gray-600 mb-8'>
-            Open to interesting projects and collaborations.
+            {language === 'en'
+              ? 'Open to interesting projects and collaborations.'
+              : 'Otwarty na ciekawe projekty i współpracę.'}
           </p>
 
           <div className='flex justify-center gap-4'>
