@@ -47,10 +47,12 @@ export const metadata: Metadata = {
   creator: 'Jakub Pruszyński',
   publisher: 'Jakub Pruszyński',
   robots: { index: true, follow: true },
-  // !STARTERCONF this is the default favicon, you can generate your own from https://realfavicongenerator.net/
-  // ! copy to /favicon folder
+  // Brain icon favicon
   icons: {
-    icon: '/favicon/favicon.ico',
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon/favicon.ico' },
+    ],
     shortcut: '/favicon/favicon-16x16.png',
     apple: '/favicon/apple-touch-icon.png',
   },

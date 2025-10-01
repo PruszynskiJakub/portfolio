@@ -2,6 +2,7 @@
 
 import {
   BookMarked,
+  Brain,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -415,6 +416,16 @@ export default function HomePage() {
           {/* Right Side - Creative */}
           <div className='bg-gradient-to-bl from-[#FFE8D6] via-[#FFF5EE] to-white relative overflow-hidden'>
             <div className='absolute bottom-10 -right-10 w-40 h-40 bg-[#FFD4B3] rounded-full blur-3xl opacity-20'></div>
+          </div>
+        </div>
+
+        {/* Brain Background Icon */}
+        <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
+          <div className='relative'>
+            <Brain
+              className='w-96 h-96 text-forest opacity-[0.08]'
+              strokeWidth={1}
+            />
           </div>
         </div>
 
