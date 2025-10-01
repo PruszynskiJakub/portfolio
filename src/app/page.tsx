@@ -385,6 +385,17 @@ export default function HomePage() {
             {language === 'en' ? 'Testimonials' : 'Referencje'}
           </a>
           <div className='border-l border-gray-300 h-4'></div>
+          <a
+            href='https://www.linkedin.com/in/jpruszynski'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='text-xs font-semibold px-3 py-1.5 bg-forest text-white rounded-full hover:bg-[var(--color-forest-600)] transition-all hover:scale-105 flex items-center gap-1.5'
+          >
+            <Linkedin className='w-3.5 h-3.5' />
+            <span>
+              {language === 'en' ? "Let's Connect" : 'Nawiążmy kontakt'}
+            </span>
+          </a>
           <button
             onClick={() => setLanguage(language === 'en' ? 'pl' : 'en')}
             className='text-xs font-medium px-2 py-1 rounded-md hover:bg-gray-100 transition-colors flex items-center gap-1'
