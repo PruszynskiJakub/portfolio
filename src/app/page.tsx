@@ -270,6 +270,77 @@ export default function HomePage() {
 
   return (
     <main className='bg-cream text-charcoal'>
+      {/* Structured Data for SEO and AI Search */}
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            name: 'Jakub Pruszyński',
+            jobTitle: 'Mobile & AI Product Engineer',
+            description:
+              'Mobile Engineer specializing in Kotlin Multiplatform (KMP), AI integration, and product development with 10+ years of experience.',
+            url: 'https://www.linkedin.com/in/jpruszynski',
+            sameAs: [
+              'https://www.linkedin.com/in/jpruszynski',
+              'https://github.com/PruszynskiJakub',
+              'https://medium.com/@jakub-pruszynski',
+              'https://www.youtube.com/@jpruszynski',
+            ],
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: 'Warsaw',
+              addressCountry: 'Poland',
+            },
+            alumniOf: {
+              '@type': 'EducationalOrganization',
+              name: 'DeepLearning.AI',
+            },
+            knowsAbout: [
+              'Kotlin Multiplatform',
+              'Mobile Development',
+              'iOS Development',
+              'Android Development',
+              'Artificial Intelligence',
+              'Machine Learning',
+              'Product Strategy',
+              'Technical Architecture',
+              'AI Automation',
+              'Cross-platform Development',
+            ],
+            hasCredential: [
+              {
+                '@type': 'EducationalOccupationalCredential',
+                name: 'Machine Learning Specialization',
+                credentialCategory: 'certificate',
+                recognizedBy: {
+                  '@type': 'Organization',
+                  name: 'DeepLearning.AI',
+                },
+              },
+              {
+                '@type': 'EducationalOccupationalCredential',
+                name: 'AI_devs 3 Agents',
+                credentialCategory: 'certificate',
+              },
+              {
+                '@type': 'EducationalOccupationalCredential',
+                name: 'Zautomatyzowani',
+                credentialCategory: 'certificate',
+              },
+            ],
+            performerIn: [
+              {
+                '@type': 'Event',
+                name: 'Mobile Trends 2024',
+                description: 'Speaking engagement on mobile development trends',
+              },
+            ],
+          }),
+        }}
+      />
+
       {/* Navigation Menu - Top Right */}
       <nav className='fixed top-6 right-6 z-50 bg-white/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-md'>
         <div className='flex items-center gap-6'>

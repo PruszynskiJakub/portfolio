@@ -16,6 +16,36 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.title}`,
   },
   description: siteConfig.description,
+  keywords: [
+    'Jakub Pruszyński',
+    'Mobile Engineer',
+    'Kotlin Multiplatform',
+    'KMP Developer',
+    'AI Integration',
+    'Machine Learning',
+    'iOS Developer',
+    'Android Developer',
+    'Product Engineer',
+    'Technical Architecture',
+    'AI Product Builder',
+    'Warsaw Poland',
+    'Mobile App Development',
+    'Cross-platform Development',
+    'AI Automation',
+    'Product Discovery',
+    'Technical Strategy',
+    'Freelance Mobile Developer',
+    'Enterprise Mobile Apps',
+    'Startup Mobile Development',
+  ],
+  authors: [
+    {
+      name: 'Jakub Pruszyński',
+      url: 'https://www.linkedin.com/in/jpruszynski',
+    },
+  ],
+  creator: 'Jakub Pruszyński',
+  publisher: 'Jakub Pruszyński',
   robots: { index: true, follow: true },
   // !STARTERCONF this is the default favicon, you can generate your own from https://realfavicongenerator.net/
   // ! copy to /favicon folder
@@ -29,7 +59,7 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     title: siteConfig.title,
     description: siteConfig.description,
-    siteName: siteConfig.title,
+    siteName: 'Jakub Pruszyński Portfolio',
     images: [`${siteConfig.url}/images/og.jpg`],
     type: 'website',
     locale: 'en_US',
@@ -39,14 +69,16 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     images: [`${siteConfig.url}/images/og.jpg`],
-    // creator: '@th_clarence',
+    creator: '@jpruszynski',
   },
-  // authors: [
-  //   {
-  //     name: 'Theodorus Clarence',
-  //     url: 'https://theodorusclarence.com',
-  //   },
-  // ],
+  alternates: {
+    canonical: siteConfig.url,
+    languages: {
+      'en-US': siteConfig.url,
+      'pl-PL': siteConfig.url,
+    },
+  },
+  category: 'technology',
 };
 
 export default function RootLayout({
