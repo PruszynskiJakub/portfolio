@@ -1188,18 +1188,16 @@ export default function HomePage() {
           </div>
 
           {/* Pagination Dots */}
-          <div className='flex justify-center gap-2 mt-6'>
+          <div className='flex justify-center gap-1.5 mt-6'>
             {Array.from({ length: totalPages }, (_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrentIndex(i)}
-                className={`h-2 rounded-full transition-all min-w-[44px] min-h-[44px] flex items-center justify-center ${
-                  currentIndex === i ? 'w-8 bg-forest' : 'w-2 bg-gray-300'
+                className={`h-1 rounded-full transition-all ${
+                  currentIndex === i ? 'w-6 bg-forest' : 'w-1.5 bg-gray-300'
                 }`}
                 aria-label={`Go to slide ${i + 1}`}
-              >
-                <span className='sr-only'>{`Go to slide ${i + 1}`}</span>
-              </button>
+              />
             ))}
           </div>
         </div>
