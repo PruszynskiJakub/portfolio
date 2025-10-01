@@ -342,62 +342,68 @@ export default function HomePage() {
         }}
       />
 
-      {/* Navigation Menu - Top Right */}
-      <nav className='fixed top-6 right-6 z-50 bg-white/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-md'>
-        <div className='flex items-center gap-6'>
-          <a
-            href='#initiatives'
-            className={`text-sm font-semibold transition-colors ${
-              activeSection === 'initiatives'
-                ? 'text-[var(--color-forest-600)]'
-                : 'text-gray-600 hover:text-forest'
-            }`}
-          >
-            {language === 'en' ? 'Initiatives' : 'Inicjatywy'}
-          </a>
-          <a
-            href='#certifications'
-            className={`text-xs transition-colors ${
-              activeSection === 'certifications'
-                ? 'text-forest font-semibold'
-                : 'text-gray-600 hover:text-forest'
-            }`}
-          >
-            {language === 'en' ? 'Certifications' : 'Certyfikaty'}
-          </a>
-          <a
-            href='#projects'
-            className={`text-xs transition-colors ${
-              activeSection === 'projects'
-                ? 'text-forest font-semibold'
-                : 'text-gray-600 hover:text-forest'
-            }`}
-          >
-            {language === 'en' ? 'Built Products' : 'Zbudowane produkty'}
-          </a>
-          <a
-            href='#recommendations'
-            className={`text-xs transition-colors ${
-              activeSection === 'recommendations'
-                ? 'text-forest font-semibold'
-                : 'text-gray-600 hover:text-forest'
-            }`}
-          >
-            {language === 'en' ? 'Testimonials' : 'Referencje'}
-          </a>
-          <div className='border-l border-gray-300 h-4'></div>
+      {/* Navigation Menu - Responsive */}
+      <nav className='fixed top-4 right-4 left-4 md:left-auto md:top-6 md:right-6 z-50 bg-white/90 backdrop-blur-sm rounded-full shadow-md'>
+        <div className='flex items-center justify-between md:justify-start gap-2 md:gap-6 px-4 py-3 md:px-6'>
+          {/* Mobile: Only show Connect button and language */}
           <a
             href='https://www.linkedin.com/in/jpruszynski'
             target='_blank'
             rel='noopener noreferrer'
-            className='text-xs font-semibold px-3 py-1.5 bg-forest text-white rounded-full hover:bg-[var(--color-forest-600)] transition-all hover:scale-105 flex items-center gap-1.5'
+            className='text-sm font-semibold px-4 py-2.5 md:px-3 md:py-1.5 bg-forest text-white rounded-full hover:bg-[var(--color-forest-600)] transition-all hover:scale-105 flex items-center gap-2 min-h-[44px] md:min-h-0'
           >
-            <Linkedin className='w-3.5 h-3.5' />
+            <Linkedin className='w-4 h-4 md:w-3.5 md:h-3.5' />
             <span>{language === 'en' ? "Let's Connect" : 'Poznajmy się'}</span>
           </a>
+
+          {/* Desktop navigation links - hidden on mobile */}
+          <div className='hidden md:flex items-center gap-6'>
+            <a
+              href='#initiatives'
+              className={`text-sm font-semibold transition-colors ${
+                activeSection === 'initiatives'
+                  ? 'text-[var(--color-forest-600)]'
+                  : 'text-gray-600 hover:text-forest'
+              }`}
+            >
+              {language === 'en' ? 'Initiatives' : 'Inicjatywy'}
+            </a>
+            <a
+              href='#certifications'
+              className={`text-sm transition-colors ${
+                activeSection === 'certifications'
+                  ? 'text-forest font-semibold'
+                  : 'text-gray-600 hover:text-forest'
+              }`}
+            >
+              {language === 'en' ? 'Certifications' : 'Certyfikaty'}
+            </a>
+            <a
+              href='#projects'
+              className={`text-sm transition-colors ${
+                activeSection === 'projects'
+                  ? 'text-forest font-semibold'
+                  : 'text-gray-600 hover:text-forest'
+              }`}
+            >
+              {language === 'en' ? 'Built Products' : 'Zbudowane produkty'}
+            </a>
+            <a
+              href='#recommendations'
+              className={`text-sm transition-colors ${
+                activeSection === 'recommendations'
+                  ? 'text-forest font-semibold'
+                  : 'text-gray-600 hover:text-forest'
+              }`}
+            >
+              {language === 'en' ? 'Testimonials' : 'Referencje'}
+            </a>
+            <div className='border-l border-gray-300 h-4'></div>
+          </div>
+
           <button
             onClick={() => setLanguage(language === 'en' ? 'pl' : 'en')}
-            className='text-xs font-medium px-2 py-1 rounded-md hover:bg-gray-100 transition-colors flex items-center gap-1'
+            className='text-sm font-medium px-3 py-2.5 md:px-2 md:py-1 rounded-md hover:bg-gray-100 transition-colors flex items-center gap-1.5 min-h-[44px] md:min-h-0'
           >
             {language === 'en' ? '🇬🇧' : '🇵🇱'}
             <span>{language === 'en' ? 'EN' : 'PL'}</span>
@@ -405,9 +411,10 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* Refined Split Hero - More Compact */}
-      <section className='min-h-[70vh] relative'>
-        <div className='absolute inset-0 grid grid-cols-2'>
+      {/* Refined Split Hero - Mobile Optimized */}
+      <section className='min-h-[70vh] relative pt-20 md:pt-0'>
+        {/* Background gradients - hidden on mobile */}
+        <div className='absolute inset-0 hidden md:grid grid-cols-2'>
           {/* Left Side - Builder */}
           <div className='bg-gradient-to-br from-[var(--color-forest-50)] via-cream to-white relative overflow-hidden'>
             <div className='absolute top-10 -left-10 w-40 h-40 bg-[var(--color-forest-100)] rounded-full blur-3xl opacity-20'></div>
@@ -419,11 +426,14 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Mobile gradient background */}
+        <div className='absolute inset-0 md:hidden bg-gradient-to-b from-[var(--color-forest-50)] via-cream to-white'></div>
+
         {/* Brain Background Icon */}
         <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
           <div className='relative'>
             <Brain
-              className='w-96 h-96 text-forest opacity-[0.08]'
+              className='w-64 md:w-96 h-64 md:h-96 text-forest opacity-[0.08]'
               strokeWidth={1}
             />
           </div>
@@ -431,7 +441,73 @@ export default function HomePage() {
 
         <div className='relative z-10 min-h-[70vh] flex items-center'>
           <div className='w-full'>
-            <div className='grid grid-cols-2'>
+            {/* Mobile: Stacked layout */}
+            <div className='md:hidden flex flex-col items-center text-center px-6 py-12 space-y-8'>
+              {/* Center Profile - Mobile First */}
+              <div className='relative'>
+                <div className='w-32 h-32 rounded-full bg-gradient-to-br from-[var(--color-forest-400)] to-[#FF8C69] p-0.5'>
+                  <div className='w-full h-full rounded-full bg-cream overflow-hidden'>
+                    <Image
+                      src='/images/me.jpeg'
+                      alt='Jakub Pruszyński'
+                      width={128}
+                      height={128}
+                      className='w-full h-full object-cover'
+                    />
+                  </div>
+                </div>
+                <div className='mt-4'>
+                  <p className='text-xl font-bold text-charcoal'>
+                    Jakub Pruszyński
+                  </p>
+                  <p className='text-sm text-gray-500'>Warsaw 🇵🇱</p>
+                </div>
+              </div>
+
+              {/* Left Side Content */}
+              <div className='space-y-4'>
+                <div>
+                  <Code2 className='w-6 h-6 text-forest mx-auto mb-2' />
+                  <span className='text-sm font-mono text-forest'>
+                    {language === 'en' ? 'ENGINEER' : 'INŻYNIER'}
+                  </span>
+                </div>
+                <h1 className='text-2xl font-bold leading-tight'>
+                  Mobile +<br />
+                  <span className='text-forest'>AI Builder</span>
+                </h1>
+                <p className='text-base text-gray-600 max-w-sm mx-auto'>
+                  {language === 'en'
+                    ? 'I transform complex problems into elegant solutions. KMP, ML, and products that matter.'
+                    : 'Przekształcam złożone problemy w eleganckie rozwiązania. KMP, ML i produkty, które mają znaczenie.'}
+                </p>
+              </div>
+
+              {/* Right Side Content */}
+              <div className='space-y-4 pt-4 border-t border-gray-200'>
+                <div>
+                  <Layers className='w-6 h-6 text-[#FF8C69] mx-auto mb-2' />
+                  <span className='text-sm font-mono text-[#FF8C69]'>
+                    {language === 'en' ? 'ARCHITECT' : 'ARCHITEKT'}
+                  </span>
+                </div>
+                <h1 className='text-2xl font-bold leading-tight'>
+                  {language === 'en' ? 'Product' : 'Produkt'}
+                  <br />
+                  <span className='text-[#FF8C69]'>
+                    {language === 'en' ? 'Thinker' : 'Strateg'}
+                  </span>
+                </h1>
+                <p className='text-base text-gray-600 max-w-sm mx-auto'>
+                  {language === 'en'
+                    ? 'Beyond code. Strategy, discovery, and execution with business impact in mind.'
+                    : 'Poza kodem. Strategia, odkrywanie i wykonanie z myślą o wpływie na biznes.'}
+                </p>
+              </div>
+            </div>
+
+            {/* Desktop: Original grid layout */}
+            <div className='hidden md:grid grid-cols-2'>
               {/* Left Side Content */}
               <div className='px-8 lg:px-16 py-12 text-left'>
                 <div className='mb-4'>
@@ -474,8 +550,8 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Center Profile - Smaller */}
-            <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
+            {/* Center Profile - Desktop Only */}
+            <div className='hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
               <div className='relative'>
                 {/* Avatar */}
                 <div className='w-28 h-28 lg:w-32 lg:h-32 rounded-full bg-gradient-to-br from-[var(--color-forest-400)] to-[#FF8C69] p-0.5'>
@@ -596,40 +672,40 @@ export default function HomePage() {
               href='https://www.youtube.com/watch?v=Gp6FVfMknYQ&t=2s'
               target='_blank'
               rel='noopener noreferrer'
-              className='flex items-center gap-3 p-3 bg-white border border-gray-100 rounded-lg hover:shadow-md transition-all group'
+              className='flex items-center gap-3 p-4 bg-white border border-gray-100 rounded-lg hover:shadow-md transition-all group min-h-[68px]'
             >
-              <div className='w-7 h-7 bg-red-50 rounded flex items-center justify-center flex-shrink-0'>
-                <Youtube className='w-4 h-4 text-red-600' />
+              <div className='w-10 h-10 bg-red-50 rounded flex items-center justify-center flex-shrink-0'>
+                <Youtube className='w-5 h-5 text-red-600' />
               </div>
               <div className='flex-1'>
-                <h4 className='text-sm font-semibold text-charcoal group-hover:text-forest transition-colors'>
+                <h4 className='text-base font-semibold text-charcoal group-hover:text-forest transition-colors'>
                   Claude Code Without Hype - Just Practically
                 </h4>
-                <p className='text-xs text-gray-600'>
+                <p className='text-sm text-gray-600'>
                   Webinar on practical AI coding techniques
                 </p>
               </div>
-              <ExternalLink className='w-3 h-3 text-gray-400 group-hover:text-forest transition-colors flex-shrink-0' />
+              <ExternalLink className='w-4 h-4 text-gray-400 group-hover:text-forest transition-colors flex-shrink-0' />
             </a>
 
             <a
               href='https://www.youtube.com/watch?v=l1ANxjUhxKU&pp=0gcJCfsJAYcqIYzv'
               target='_blank'
               rel='noopener noreferrer'
-              className='flex items-center gap-3 p-3 bg-white border border-gray-100 rounded-lg hover:shadow-md transition-all group'
+              className='flex items-center gap-3 p-4 bg-white border border-gray-100 rounded-lg hover:shadow-md transition-all group min-h-[68px]'
             >
-              <div className='w-7 h-7 bg-red-50 rounded flex items-center justify-center flex-shrink-0'>
-                <Youtube className='w-4 h-4 text-red-600' />
+              <div className='w-10 h-10 bg-red-50 rounded flex items-center justify-center flex-shrink-0'>
+                <Youtube className='w-5 h-5 text-red-600' />
               </div>
               <div className='flex-1'>
-                <h4 className='text-sm font-semibold text-charcoal group-hover:text-forest transition-colors'>
+                <h4 className='text-base font-semibold text-charcoal group-hover:text-forest transition-colors'>
                   Pragmatic Talks: AI Agents - How They Work
                 </h4>
-                <p className='text-xs text-gray-600'>
+                <p className='text-sm text-gray-600'>
                   Guest speaker on AI architecture
                 </p>
               </div>
-              <ExternalLink className='w-3 h-3 text-gray-400 group-hover:text-forest transition-colors flex-shrink-0' />
+              <ExternalLink className='w-4 h-4 text-gray-400 group-hover:text-forest transition-colors flex-shrink-0' />
             </a>
 
             {/* Blog/Community */}
@@ -637,32 +713,32 @@ export default function HomePage() {
               href='https://programujz.ai'
               target='_blank'
               rel='noopener noreferrer'
-              className='flex items-center gap-3 p-3 bg-gradient-to-r from-[var(--color-forest-50)] to-white rounded-lg hover:shadow-md transition-all group'
+              className='flex items-center gap-3 p-4 bg-gradient-to-r from-[var(--color-forest-50)] to-white rounded-lg hover:shadow-md transition-all group min-h-[68px]'
             >
-              <div className='w-7 h-7 bg-[var(--color-forest-100)] rounded flex items-center justify-center flex-shrink-0'>
-                <Users className='w-4 h-4 text-forest' />
+              <div className='w-10 h-10 bg-[var(--color-forest-100)] rounded flex items-center justify-center flex-shrink-0'>
+                <Users className='w-5 h-5 text-forest' />
               </div>
               <div className='flex-1'>
-                <h4 className='text-sm font-semibold text-charcoal group-hover:text-forest transition-colors'>
+                <h4 className='text-base font-semibold text-charcoal group-hover:text-forest transition-colors'>
                   Blog programujz.ai
                 </h4>
-                <p className='text-xs text-gray-600'>
+                <p className='text-sm text-gray-600'>
                   Co-leading AI development blog and resources
                 </p>
               </div>
-              <ExternalLink className='w-3 h-3 text-gray-400 group-hover:text-forest transition-colors flex-shrink-0' />
+              <ExternalLink className='w-4 h-4 text-gray-400 group-hover:text-forest transition-colors flex-shrink-0' />
             </a>
 
             {/* Workshop */}
-            <div className='flex items-center gap-3 p-3 bg-white border border-gray-100 rounded-lg'>
-              <div className='w-7 h-7 bg-[#FFD4B3]/30 rounded flex items-center justify-center flex-shrink-0'>
-                <Presentation className='w-4 h-4 text-[#FF8C69]' />
+            <div className='flex items-center gap-3 p-4 bg-white border border-gray-100 rounded-lg min-h-[68px]'>
+              <div className='w-10 h-10 bg-[#FFD4B3]/30 rounded flex items-center justify-center flex-shrink-0'>
+                <Presentation className='w-5 h-5 text-[#FF8C69]' />
               </div>
               <div className='flex-1'>
-                <h4 className='text-sm font-semibold text-charcoal'>
+                <h4 className='text-base font-semibold text-charcoal'>
                   Open Workshops on Programming with AI
                 </h4>
-                <p className='text-xs text-gray-600'>
+                <p className='text-sm text-gray-600'>
                   Community workshops with hands-on AI development
                 </p>
               </div>
@@ -800,11 +876,11 @@ export default function HomePage() {
             {/* Show more/less button */}
             <button
               onClick={() => setShowAllInitiatives(!showAllInitiatives)}
-              className='w-full py-2 text-sm text-forest hover:text-[var(--color-forest-600)] transition-colors flex items-center justify-center gap-2'
+              className='w-full py-3 text-base text-forest hover:text-[var(--color-forest-600)] transition-colors flex items-center justify-center gap-2 min-h-[48px]'
             >
               {showAllInitiatives ? 'Show less' : 'Show more'}
               <ChevronDown
-                className={`w-4 h-4 transition-transform ${
+                className={`w-5 h-5 transition-transform ${
                   showAllInitiatives ? 'rotate-180' : ''
                 }`}
               />
@@ -1023,17 +1099,17 @@ export default function HomePage() {
             <div className='flex gap-2'>
               <button
                 onClick={prevSlide}
-                className='p-1.5 rounded-full hover:bg-gray-100 transition-colors'
+                className='p-2.5 rounded-full hover:bg-gray-100 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center'
                 aria-label='Previous projects'
               >
-                <ChevronLeft className='w-4 h-4' />
+                <ChevronLeft className='w-5 h-5' />
               </button>
               <button
                 onClick={nextSlide}
-                className='p-1.5 rounded-full hover:bg-gray-100 transition-colors'
+                className='p-2.5 rounded-full hover:bg-gray-100 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center'
                 aria-label='Next projects'
               >
-                <ChevronRight className='w-4 h-4' />
+                <ChevronRight className='w-5 h-5' />
               </button>
             </div>
           </div>
@@ -1112,16 +1188,18 @@ export default function HomePage() {
           </div>
 
           {/* Pagination Dots */}
-          <div className='flex justify-center gap-1.5 mt-6'>
+          <div className='flex justify-center gap-2 mt-6'>
             {Array.from({ length: totalPages }, (_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrentIndex(i)}
-                className={`h-1 rounded-full transition-all ${
-                  currentIndex === i ? 'w-6 bg-forest' : 'w-1.5 bg-gray-300'
+                className={`h-2 rounded-full transition-all min-w-[44px] min-h-[44px] flex items-center justify-center ${
+                  currentIndex === i ? 'w-8 bg-forest' : 'w-2 bg-gray-300'
                 }`}
                 aria-label={`Go to slide ${i + 1}`}
-              />
+              >
+                <span className='sr-only'>{`Go to slide ${i + 1}`}</span>
+              </button>
             ))}
           </div>
         </div>
@@ -1364,29 +1442,29 @@ export default function HomePage() {
               : 'Otwarty na ciekawe projekty i współpracę.'}
           </p>
 
-          <div className='flex justify-center gap-4'>
+          <div className='flex flex-col sm:flex-row justify-center gap-3 sm:gap-4'>
             <a
               href='https://www.linkedin.com/in/jpruszynski'
-              className='flex items-center gap-2 px-4 py-2 bg-[var(--color-forest-50)] rounded-lg hover:bg-[var(--color-forest-100)] transition-colors'
+              className='flex items-center justify-center gap-2 px-6 py-3.5 bg-[var(--color-forest-50)] rounded-lg hover:bg-[var(--color-forest-100)] transition-colors min-h-[48px]'
             >
-              <Linkedin className='w-4 h-4 text-forest' />
-              <span className='text-sm'>LinkedIn</span>
+              <Linkedin className='w-5 h-5 text-forest' />
+              <span className='text-base'>LinkedIn</span>
             </a>
 
             <a
               href='mailto:jakub.mikolaj.pruszynski@gmail.com'
-              className='flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors'
+              className='flex items-center justify-center gap-2 px-6 py-3.5 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-h-[48px]'
             >
-              <Mail className='w-4 h-4 text-gray-600' />
-              <span className='text-sm'>Email</span>
+              <Mail className='w-5 h-5 text-gray-600' />
+              <span className='text-base'>Email</span>
             </a>
 
             <a
               href='https://github.com/PruszynskiJakub'
-              className='flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors'
+              className='flex items-center justify-center gap-2 px-6 py-3.5 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors min-h-[48px]'
             >
-              <Github className='w-4 h-4 text-gray-600' />
-              <span className='text-sm'>GitHub</span>
+              <Github className='w-5 h-5 text-gray-600' />
+              <span className='text-base'>GitHub</span>
             </a>
           </div>
 
