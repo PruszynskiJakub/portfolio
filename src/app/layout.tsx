@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/next';
 import { Metadata } from 'next';
 import * as React from 'react';
 
@@ -95,6 +96,7 @@ export default function RootLayout({
         <link rel='alternate icon' href='/favicon/favicon.ico' />
       </head>
       <body>{children}</body>
+      <Analytics />
     </html>
   );
 }

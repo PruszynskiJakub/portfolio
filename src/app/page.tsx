@@ -444,7 +444,7 @@ export default function HomePage() {
             {/* Mobile: Stacked layout */}
             <div className='md:hidden flex flex-col items-center text-center px-6 py-12 space-y-8'>
               {/* Center Profile - Mobile First */}
-              <div className='relative'>
+              <div className='relative mx-auto'>
                 <div className='w-32 h-32 rounded-full bg-gradient-to-br from-[var(--color-forest-400)] to-[#FF8C69] p-0.5'>
                   <div className='w-full h-full rounded-full bg-cream overflow-hidden'>
                     <Image
