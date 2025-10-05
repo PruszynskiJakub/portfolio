@@ -2,7 +2,6 @@
 
 import {
   BookMarked,
-  Brain,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -431,10 +430,12 @@ export default function HomePage() {
 
         {/* Brain Background Icon */}
         <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
-          <div className='relative'>
-            <Brain
-              className='w-64 md:w-96 h-64 md:h-96 text-forest opacity-[0.08]'
-              strokeWidth={1}
+          <div className='relative w-64 md:w-96 h-64 md:h-96'>
+            <Image
+              src='/images/brain.svg'
+              alt='Brain background'
+              fill
+              className='object-contain opacity-[0.08]'
             />
           </div>
         </div>

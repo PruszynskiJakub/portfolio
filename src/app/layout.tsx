@@ -50,10 +50,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   // Brain icon favicon
   icons: {
-    icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/favicon/favicon.ico' },
-    ],
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
     shortcut: '/favicon/favicon-16x16.png',
     apple: '/favicon/apple-touch-icon.png',
   },
@@ -93,7 +90,6 @@ export default function RootLayout({
     <html>
       <head>
         <link rel='icon' href='/favicon.svg' type='image/svg+xml' />
-        <link rel='alternate icon' href='/favicon/favicon.ico' />
       </head>
       <body>{children}</body>
       <Analytics />
