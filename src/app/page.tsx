@@ -444,7 +444,7 @@ export default function HomePage() {
             {/* Mobile: Stacked layout */}
             <div className='md:hidden flex flex-col items-center text-center px-6 py-12 space-y-8'>
               {/* Center Profile - Mobile First */}
-              <div className='relative mx-auto'>
+              <div className='relative w-full flex flex-col items-center'>
                 <div className='w-32 h-32 rounded-full bg-gradient-to-br from-[var(--color-forest-400)] to-[#FF8C69] p-0.5'>
                   <div className='w-full h-full rounded-full bg-cream overflow-hidden'>
                     <Image
@@ -812,7 +812,7 @@ export default function HomePage() {
                 </a>
 
                 <a
-                  href='https://medium.com/@jakub-pruszynski/t-stands-for-testing-understand-it-first-part-1-327aa0f7ce40'
+                  href='https://medium.com/@jakub-pruszynski/t-stands-for-testing-understand-it-first-chapter-3-the-right-way-fdf2de3d3073'
                   target='_blank'
                   rel='noopener noreferrer'
                   className='flex items-center gap-3 p-3 bg-white border border-gray-100 rounded-lg hover:shadow-md transition-all group'
@@ -822,10 +822,10 @@ export default function HomePage() {
                   </div>
                   <div className='flex-1'>
                     <h4 className='text-sm font-semibold text-charcoal group-hover:text-forest transition-colors'>
-                      T Stands for Testing - Part 1: Foundation
+                      T Stands for Testing - Part 3: The Right Way
                     </h4>
                     <p className='text-xs text-gray-600'>
-                      Understanding the fundamentals of testing
+                      Best practices for effective testing
                     </p>
                   </div>
                   <ExternalLink className='w-3 h-3 text-gray-400 group-hover:text-forest transition-colors flex-shrink-0' />
@@ -852,7 +852,7 @@ export default function HomePage() {
                 </a>
 
                 <a
-                  href='https://medium.com/@jakub-pruszynski/t-stands-for-testing-understand-it-first-chapter-3-the-right-way-fdf2de3d3073'
+                  href='https://medium.com/@jakub-pruszynski/t-stands-for-testing-understand-it-first-part-1-327aa0f7ce40'
                   target='_blank'
                   rel='noopener noreferrer'
                   className='flex items-center gap-3 p-3 bg-white border border-gray-100 rounded-lg hover:shadow-md transition-all group'
@@ -862,10 +862,10 @@ export default function HomePage() {
                   </div>
                   <div className='flex-1'>
                     <h4 className='text-sm font-semibold text-charcoal group-hover:text-forest transition-colors'>
-                      T Stands for Testing - Part 3: The Right Way
+                      T Stands for Testing - Part 1: Foundation
                     </h4>
                     <p className='text-xs text-gray-600'>
-                      Best practices for effective testing
+                      Understanding the fundamentals of testing
                     </p>
                   </div>
                   <ExternalLink className='w-3 h-3 text-gray-400 group-hover:text-forest transition-colors flex-shrink-0' />
