@@ -668,6 +668,25 @@ export default function HomePage() {
           </div>
 
           <div className='max-w-3xl mx-auto space-y-3'>
+            {/* Claude Insights - In Progress */}
+            <div className='flex items-center gap-3 p-4 bg-gradient-to-r from-[#F0F4FF] to-white border-2 border-dashed border-[#6366F1]/30 rounded-lg relative min-h-[68px]'>
+              <div className='absolute top-2 right-2 px-2 py-0.5 bg-[#6366F1] text-white text-xs rounded-full font-medium'>
+                {language === 'en' ? 'In Progress' : 'W trakcie'}
+              </div>
+              <div className='w-10 h-10 bg-[#6366F1]/10 rounded flex items-center justify-center flex-shrink-0'>
+                <Layers className='w-5 h-5 text-[#6366F1]' />
+              </div>
+              <div className='flex-1'>
+                <h4 className='text-base font-semibold text-charcoal'>
+                  Claude Insights
+                </h4>
+                <p className='text-sm text-gray-600'>
+                  An app created to boost your AI assisted productivity and
+                  workflows
+                </p>
+              </div>
+            </div>
+
             {/* YouTube/Speaking items */}
             <a
               href='https://www.youtube.com/watch?v=Gp6FVfMknYQ&t=2s'
