@@ -687,6 +687,21 @@ export default function HomePage() {
               </div>
             </div>
 
+            {/* Claude Code Meet Up */}
+            <div className='flex items-center gap-3 p-4 bg-gradient-to-r from-[#FFE8D6] to-white rounded-lg hover:shadow-md transition-all group min-h-[68px]'>
+              <div className='w-10 h-10 bg-[#FFD4B3]/50 rounded flex items-center justify-center flex-shrink-0'>
+                <Presentation className='w-5 h-5 text-[#FF8C69]' />
+              </div>
+              <div className='flex-1'>
+                <h4 className='text-base font-semibold text-charcoal'>
+                  Claude Code Meet Up by Brave.courses x Anthropic
+                </h4>
+                <p className='text-sm text-gray-600'>
+                  Presentation: "Rewriting app without the budget but with AI"
+                </p>
+              </div>
+            </div>
+
             {/* YouTube/Speaking items */}
             <a
               href='https://www.youtube.com/watch?v=Gp6FVfMknYQ&t=2s'
@@ -723,27 +738,6 @@ export default function HomePage() {
                 </h4>
                 <p className='text-sm text-gray-600'>
                   Guest speaker on AI architecture
-                </p>
-              </div>
-              <ExternalLink className='w-4 h-4 text-gray-400 group-hover:text-forest transition-colors flex-shrink-0' />
-            </a>
-
-            {/* Blog/Community */}
-            <a
-              href='https://programujz.ai'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='flex items-center gap-3 p-4 bg-gradient-to-r from-[var(--color-forest-50)] to-white rounded-lg hover:shadow-md transition-all group min-h-[68px]'
-            >
-              <div className='w-10 h-10 bg-[var(--color-forest-100)] rounded flex items-center justify-center flex-shrink-0'>
-                <Users className='w-5 h-5 text-forest' />
-              </div>
-              <div className='flex-1'>
-                <h4 className='text-base font-semibold text-charcoal group-hover:text-forest transition-colors'>
-                  Blog programujz.ai
-                </h4>
-                <p className='text-sm text-gray-600'>
-                  Co-leading AI development blog and resources
                 </p>
               </div>
               <ExternalLink className='w-4 h-4 text-gray-400 group-hover:text-forest transition-colors flex-shrink-0' />
