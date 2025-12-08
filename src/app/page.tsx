@@ -24,6 +24,18 @@ import { useEffect, useState } from 'react';
 const projects = [
   {
     id: 1,
+    name: 'AI Search',
+    client: 'Linius',
+    description:
+      'Smart search for video clips to fetch more desired results using AI-powered indexing and retrieval.',
+    role: 'Technical implementation',
+    badge: 'AI Search',
+    icon: LineChart,
+    color: 'from-violet-400 to-purple-600',
+    logo: null,
+  },
+  {
+    id: 2,
     name: 'Lockus OZN',
     client: 'PKP Intercity',
     date: 'Sep 2025',
@@ -36,7 +48,7 @@ const projects = [
     logo: null,
   },
   {
-    id: 2,
+    id: 3,
     name: 'CardiaPath',
     client: 'Dr. Matt Jones',
     date: 'Mar-Aug 2025',
@@ -48,7 +60,7 @@ const projects = [
     logo: '/images/logo_cardiapath.png',
   },
   {
-    id: 3,
+    id: 4,
     name: 'AI Financial Feeds',
     client: 'Pragmatic Coders',
     description:
@@ -60,7 +72,7 @@ const projects = [
     logo: null,
   },
   {
-    id: 4,
+    id: 5,
     name: 'AI Tech Candidate Evaluation',
     client: 'Pragmatic Coders',
     description:
@@ -72,7 +84,7 @@ const projects = [
     logo: null,
   },
   {
-    id: 5,
+    id: 6,
     name: 'Frost',
     client: 'Fintech Startup',
     description:
@@ -83,7 +95,7 @@ const projects = [
     logo: '/images/logo_frost.png',
   },
   {
-    id: 6,
+    id: 7,
     name: 'Health Folder',
     client: 'Teczka Pacjenta',
     description:
@@ -94,7 +106,7 @@ const projects = [
     logo: '/images/logo_hf.png',
   },
   {
-    id: 7,
+    id: 8,
     name: 'WP Poczta',
     client: 'Wirtualna Polska',
     description:
@@ -105,7 +117,7 @@ const projects = [
     logo: '/images/logo_wp.png',
   },
   {
-    id: 8,
+    id: 9,
     name: 'Open FM',
     client: 'Wirtualna Polska',
     description:
@@ -116,7 +128,7 @@ const projects = [
     logo: '/images/logo_openfm.png',
   },
   {
-    id: 9,
+    id: 10,
     name: '1login od WP',
     client: 'Wirtualna Polska',
     description:
@@ -127,7 +139,7 @@ const projects = [
     logo: '/images/logo_onelogin.png',
   },
   {
-    id: 10,
+    id: 11,
     name: 'Poczta o2',
     client: 'Wirtualna Polska',
     description:
@@ -138,7 +150,7 @@ const projects = [
     logo: '/images/logo_o2.png',
   },
   {
-    id: 11,
+    id: 12,
     name: 'Super-Pharm',
     client: 'Future Mind',
     description:
@@ -149,7 +161,7 @@ const projects = [
     logo: '/images/logo_superpharm.png',
   },
   {
-    id: 12,
+    id: 13,
     name: 'XKCD Explorer',
     client: 'Side Project',
     description:
@@ -687,6 +699,28 @@ export default function HomePage() {
               </div>
             </div>
 
+            {/* AI Command Center for PMs */}
+            <a
+              href='https://www.youtube.com/watch?v=bH5x1C85uWA'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='flex items-center gap-3 p-4 bg-white border border-gray-100 rounded-lg hover:shadow-md transition-all group min-h-[68px]'
+            >
+              <div className='w-10 h-10 bg-red-50 rounded flex items-center justify-center flex-shrink-0'>
+                <Youtube className='w-5 h-5 text-red-600' />
+              </div>
+              <div className='flex-1'>
+                <h4 className='text-base font-semibold text-charcoal group-hover:text-forest transition-colors'>
+                  AI Command Center for PMs - How to work with Gemini CLI in
+                  practice
+                </h4>
+                <p className='text-sm text-gray-600'>
+                  Webinar on practical AI tools for product managers
+                </p>
+              </div>
+              <ExternalLink className='w-4 h-4 text-gray-400 group-hover:text-forest transition-colors flex-shrink-0' />
+            </a>
+
             {/* Claude Code Meet Up */}
             <div className='flex items-center gap-3 p-4 bg-gradient-to-r from-[#FFE8D6] to-white rounded-lg hover:shadow-md transition-all group min-h-[68px]'>
               <div className='w-10 h-10 bg-[#FFD4B3]/50 rounded flex items-center justify-center flex-shrink-0'>
@@ -930,6 +964,37 @@ export default function HomePage() {
           </div>
 
           <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
+            {/* AI Devs 4: Builders - Soon */}
+            <div className='bg-gradient-to-br from-[#FFF5EE] to-white rounded-lg p-4 border-2 border-dashed border-[#FF8C69]/30 relative'>
+              <div className='absolute top-2 right-2 px-1.5 py-0.5 bg-[#FF8C69] text-white text-xs rounded-full text-[10px] font-medium'>
+                {language === 'en' ? 'Soon' : 'Wkrótce'}
+              </div>
+              <div className='flex items-start gap-3'>
+                <div className='relative w-10 h-10 flex-shrink-0'>
+                  <Image
+                    src='/images/cert_aidevs4.png'
+                    alt='AI Devs 4 logo'
+                    width={40}
+                    height={40}
+                    className='object-contain'
+                  />
+                </div>
+                <div className='flex-1'>
+                  <h4 className='text-sm font-semibold text-charcoal'>
+                    AI Devs 4: Builders
+                  </h4>
+                  <p className='text-xs text-gray-600 mt-0.5'>
+                    {language === 'en'
+                      ? 'Advanced AI application building'
+                      : 'Zaawansowane budowanie aplikacji AI'}
+                  </p>
+                  <p className='text-xs text-[#FF8C69] mt-1'>
+                    {language === 'en' ? 'March 2026' : 'Marzec 2026'}
+                  </p>
+                </div>
+              </div>
+            </div>
+
             {/* AI Product Heroes - In Progress */}
             <div className='bg-gradient-to-br from-[#F0F4FF] to-white rounded-lg p-4 border-2 border-dashed border-[#6366F1]/30 relative'>
               <div className='absolute top-2 right-2 px-1.5 py-0.5 bg-[#6366F1] text-white text-xs rounded-full text-[10px] font-medium'>
