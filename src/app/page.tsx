@@ -736,6 +736,27 @@ export default function HomePage() {
               </div>
             </div>
 
+            {/* Best AI Tools for Coding Article */}
+            <a
+              href='https://www.pragmaticcoders.com/resources/ai-developer-tools'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='flex items-center gap-3 p-4 bg-white border border-gray-100 rounded-lg hover:shadow-md transition-all group min-h-[68px]'
+            >
+              <div className='w-10 h-10 bg-gray-100 rounded flex items-center justify-center flex-shrink-0'>
+                <BookMarked className='w-5 h-5 text-gray-700' />
+              </div>
+              <div className='flex-1'>
+                <h4 className='text-base font-semibold text-charcoal group-hover:text-forest transition-colors'>
+                  Best AI Tools for Coding
+                </h4>
+                <p className='text-sm text-gray-600'>
+                  Comprehensive guide refreshed quarterly
+                </p>
+              </div>
+              <ExternalLink className='w-4 h-4 text-gray-400 group-hover:text-forest transition-colors flex-shrink-0' />
+            </a>
+
             {/* YouTube/Speaking items */}
             <a
               href='https://www.youtube.com/watch?v=Gp6FVfMknYQ&t=2s'
